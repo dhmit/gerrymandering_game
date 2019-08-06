@@ -15,7 +15,14 @@ class Square extends React.Component {
             district: props.district, // increases by 1 every click
             populations: props.populations, // list of integers representing population of each
             // type of group within this square, respectively
+            bgcolor: '#ffffff'
         };
+    }
+
+    boxClick = (e) => {
+        this.setState({
+            bgColor: "red"
+        })
     }
 
     render() {
@@ -25,9 +32,11 @@ class Square extends React.Component {
             <Rectangle
                 width={100}
                 height={100}
-                fill={{color: '#ffffff'}}
+                fill={{color: this.state.bgColor}}
                 stroke={{color:'#000000'}}
                 strokeWidth={3}
+                // style={{backgroundColor:this.state.bgColor}}
+                onClick={this.boxClick}
             />
         );
     }
