@@ -64,7 +64,7 @@ class Map extends React.Component {
         
         return (
             <div>
-                viewSquares
+                {viewSquares}
             </div>
         );
     }
