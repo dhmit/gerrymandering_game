@@ -4,21 +4,11 @@ import './App.css';
 class Square extends React.Component {
     constructor(props) {
         super(props);
-        const populations = {};
-        let total = 0;
-        for (let i = 0; i < props.numPopulations; i++) {
-            populations[i] = Math.random();
-            total += populations[i];
-        }
-        for (let i = 0; i < props.numPopulations; i++) {
-            populations[i] = 100 * populations[i] / total;
-        }
 
         this.state = {
-            numDistricts: props.numDistricts,
-            numPopulations: props.numPopulations,
-            district: 0, // increases by 1 every click
-            populations: populations,
+            district: props.district, // increases by 1 every click
+            populations: props.populations, // list of integers representing population of each
+            // type of group within this square, respectively
         };
     }
 
@@ -30,18 +20,39 @@ class Square extends React.Component {
 
 }
 
-class Game extends React.Component {
+class Map extends React.Component {
     constructor(props) {
         super(props);
+
+        // set up squares
+        const squares = [];
+        for (let i = 0; i < props.numSquares; i++) {
+            let populations = [];
+            for (let p = 0; p < props.numPopulations; p++) {
+                populations.push(Math.round(10*Math.random()));
+            }
+            squares.push({district: 0, populations: populations});
+        }
+
         this.state = {
             numDistricts: props.numDistricts,
             numPopulations: props.numPopulations,
+            numSquares: props.numSquares,
+            squares: squares, // each square in the list is {district: int, populations: []}
         };
     }
 
     render() {
-        return null;
+        const viewSquares = this.state.squares.map(square =>
+            <Square district={square.district} populations={square.populations}/>
+        );
+        
+        return (
+            <div>
+                viewSquares
+            </div>
+        );
     }
 }
 
-export default Game;
+export default Map;
