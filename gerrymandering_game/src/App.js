@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import Form from 'react-bootstrap/Form';
 
 class Square extends React.Component {
     constructor(props) {
@@ -82,6 +85,12 @@ class Game extends React.Component {
         }
     }
 
+    gameModeChange(val) {
+        this.setState({
+            game_mode: val,
+        });
+    }
+
     render() {
         return (
             <div className='game'>
@@ -89,7 +98,16 @@ class Game extends React.Component {
                     <Map numSquares={this.state.population} numPopulations={this.state.groups} />
                 </div>
                 <div className='control-view'>
-                    <Button variant='primary' size='lg'>Hello</Button>
+                    <ToggleButtonGroup type='radio' value={this.state.game_mode} onChange={e => this.gameModeChange(e)} name='game-mode'>
+                        <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
+                        <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
+                    </ToggleButtonGroup>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Population</Form.Label>
+                            <Form.Control type='text' value={this.state.population}/>
+                        </Form.Group>
+                    </Form>
                 </div>
             </div>
         );

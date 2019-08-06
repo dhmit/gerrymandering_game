@@ -6,9 +6,10 @@
 .map-view {
     flex: 75%;
     margin: 2%;
-    background-color: red;
+    background-color: lightcoral;
 }
 
 .control-view {
     flex: 25%;
+    margin: 2%;
 }
