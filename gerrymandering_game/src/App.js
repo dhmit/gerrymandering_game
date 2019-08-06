@@ -5,6 +5,7 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import {Rectangle} from 'react-shapes';
 
 class Square extends React.Component {
     constructor(props) {
@@ -20,10 +21,18 @@ class Square extends React.Component {
     render() {
         // display a square with population distributions written over as text
         // on click, changes color to indicate changed district
-        return null;
+        return (
+            <Rectangle
+                width={100}
+                height={100}
+                fill={{color: '#2409ba'}}
+                stroke={{color:'#E65243'}}
+                strokeWidth={3}
+            />
+        );
     }
-
 }
+
 
 function Person(props) {
     const circle_style = { // Can be changed as needed
