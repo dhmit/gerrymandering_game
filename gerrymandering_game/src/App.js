@@ -126,6 +126,10 @@ class Game extends React.Component {
                             <Form.Label>Population</Form.Label>
                             <Form.Control type='text' value={this.state.population}/>
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Groups</Form.Label>
+                            <Form.Control type='text' value={this.state.groups}/>
+                        </Form.Group>
                     </Form>
                 </div>
             </div>
