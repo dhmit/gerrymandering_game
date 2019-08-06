@@ -25,8 +25,8 @@ class Square extends React.Component {
             <Rectangle
                 width={100}
                 height={100}
-                fill={{color: '#2409ba'}}
-                stroke={{color:'#E65243'}}
+                fill={{color: '#ffffff'}}
+                stroke={{color:'#000000'}}
                 strokeWidth={3}
             />
         );
