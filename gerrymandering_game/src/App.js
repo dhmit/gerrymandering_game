@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button'
 
 class Square extends React.Component {
     constructor(props) {
@@ -22,16 +23,16 @@ class Square extends React.Component {
 }
 
 function Person(props) {
-    const circle_style = {
+    const circle_style = { // Can be changed as needed
         display: 'inline-block',
-        backgroundColor: props.color,
+        backgroundColor: props.color, // Color of person determined by prop
         borderRadius: '50%',
         width: '10%',
         height: '10%',
     };
 
     return (
-        <div className='person' style={circle_style} />
+        <div className='person' style={circle_style} /> // Each 'person' is a circle loaded into another div (location?)
     );
 }
 
@@ -89,4 +90,29 @@ class Map extends React.Component {
     }
 }
 
-export default Map;
+
+class Game extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            game_mode: 'single',
+            population: 100,
+            groups: 2,
+        }
+    }
+
+    render() {
+        return (
+            <div className='game'>
+                <div className='map-view'>
+                    <Map numSquares={this.state.population} numPopulations={this.state.groups} />
+                </div>
+                <div className='control-view'>
+                    <Button variant='primary' size='lg'>Hello</Button>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Game;
