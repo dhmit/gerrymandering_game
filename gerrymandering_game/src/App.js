@@ -20,6 +20,21 @@ class Square extends React.Component {
 
 }
 
+function Person(props) {
+    const circle_style = {
+        display: 'inline-block',
+        backgroundColor: props.color,
+        borderRadius: '50%',
+        width: '10%',
+        height: '10%',
+    };
+
+    return (
+        <div className='person' style={circle_style} />
+    );
+}
+
+
 class Map extends React.Component {
     constructor(props) {
         super(props);
