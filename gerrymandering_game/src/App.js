@@ -19,7 +19,7 @@ class Square extends React.Component {
     }
 
     render() {
-        // display a square with population distributions written over as text
+        // display a square with population represented as person/circles
         // on click, changes color to indicate changed district
         return (
             <Rectangle
