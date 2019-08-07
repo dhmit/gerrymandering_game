@@ -1,14 +1,5 @@
 .game {
-    display: flex;
-    height: 200px;
+    overflow: auto;
+    margin: 3%;
 }
 
-.map-view {
-    flex: 75%;
-    margin: 2%;
-}
-
-.control-view {
-    flex: 25%;
-    margin: 2%;
-}

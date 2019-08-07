@@ -3,9 +3,13 @@ import './App.css';
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert'
 import {Rectangle} from 'react-shapes';
+
 
 class Square extends React.Component {
     constructor(props) {
@@ -110,6 +114,19 @@ class Map extends React.Component {
     }
 }
 
+function InputWarning(props) {
+    if (!props.show) {
+        return null;
+    } else {
+        return (
+            <Alert variant='danger'>
+                Please only use integer values
+            </Alert>
+        );
+
+    }
+}
+
 
 class Game extends React.Component {
     constructor(props) {
@@ -118,6 +135,9 @@ class Game extends React.Component {
             game_mode: 'single',
             population: 100,
             groups: 2,
+            user_population: 100,
+            user_groups: 2,
+            raise_warning: false,
         }
     }
 
@@ -127,29 +147,68 @@ class Game extends React.Component {
         });
     }
 
+    gameNumberSubmit(e) {
+        e.preventDefault();
+        const user_population = this.state.user_population;
+        const user_groups = this.state.user_groups;
+
+        if (isNaN(user_population) || isNaN(user_groups)) {
+            this.setState({
+                raise_warning: true,
+            });
+        } else {
+
+            this.setState({
+                population: +user_population,
+                groups: +user_groups,
+                user_groups,
+                user_population,
+                raise_warning: false,
+            });
+        }
+    }
+
+    gameNumberChange(e) {
+        if (e.target.id === 'groups') { // User changed groups
+            this.setState({
+                user_groups: e.target.value,
+            });
+        } else if (e.target.id === 'population') { // User changed population
+            this.setState({
+                user_population: e.target.value,
+            });
+        } else { // The user broke the system in a non-crashy way
+            console.log(e.target.id);
+        }
+    }
+
     render() {
         return (
-            <div className='game'>
-                <div className='map-view'>
-                    <Map numSquares={this.state.population} numPopulations={this.state.groups} />
-                </div>
-                <div className='control-view'>
-                    <ToggleButtonGroup type='radio' value={this.state.game_mode} onChange={e => this.gameModeChange(e)} name='game-mode'>
-                        <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
-                        <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
-                    </ToggleButtonGroup>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>Population</Form.Label>
-                            <Form.Control type='text' value={this.state.population}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Groups</Form.Label>
-                            <Form.Control type='text' value={this.state.groups}/>
-                        </Form.Group>
-                    </Form>
-                </div>
-            </div>
+            <Container className='game'>
+                <Row>
+                    <Col sm='8' xs='6'>
+                        <Map numSquares={this.state.population} numPopulations={this.state.groups} />
+                    </Col>
+                    <Col sm='4' xs='6'>
+                        <ToggleButtonGroup type='radio' value={this.state.game_mode} onChange={e => this.gameModeChange(e)} name='game-mode'>
+                            <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
+                            <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
+                        </ToggleButtonGroup>
+                        <Form onSubmit={(e) => this.gameNumberSubmit(e)} >
+                            <Form.Group controlId='population'>
+                                <Form.Label>Population</Form.Label>
+                                <Form.Control type='text' value={this.state.user_population} onChange={(e) => this.gameNumberChange(e)}/>
+                            </Form.Group>
+                            <Form.Group controlId='groups'>
+                                <Form.Label>Groups</Form.Label>
+                                <Form.Control type='text' value={this.state.user_groups} onChange={(e) => this.gameNumberChange(e)}/>
+                            </Form.Group>
+                            <Button type='submit' variant='outline-secondary'>Refresh</Button>
+                        </Form>
+                        <InputWarning show={this.state.raise_warning}/>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
