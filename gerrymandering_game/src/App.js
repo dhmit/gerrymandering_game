@@ -123,9 +123,9 @@ class Game extends React.Component {
         super(props);
         this.state = {
             game_mode: 'single',
-            population: 100,
+            population: 10,
             groups: 2,
-            user_population: 100,
+            user_population: 10,
             user_groups: 2,
             raise_warning: false,
         }
