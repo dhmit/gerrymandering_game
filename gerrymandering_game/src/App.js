@@ -25,8 +25,7 @@ class Square extends React.Component {
 
     boxClick = () => { 
         const colors = ['red', 'blue', 'yellow', 'green', 'purple'];
-        let district = this.state.district;
-        district = (district+1) % this.state.populations.length;
+        const district = (this.state.district+1) % this.state.populations.length;
         this.setState({
             district: district,
             bgColor: colors[district],
