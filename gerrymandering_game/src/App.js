@@ -110,6 +110,33 @@ function InputWarning(props) {
     }
 }
 
+function GameSettings(props) {
+    return (
+        <div>
+            <ToggleButtonGroup type='radio' value={props.game_mode} onChange={props.modeChange} name='game-mode'>
+                <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
+                <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
+            </ToggleButtonGroup>
+            <Form onSubmit={props.formSubmit} >
+                <Form.Group controlId='population'>
+                    <Form.Label>Population</Form.Label>
+                    <Form.Control type='text' value={props.population} onChange={props.numberChange}/>
+                </Form.Group>
+                <Form.Group controlId='areas'>
+                    <Form.Label>Areas</Form.Label>
+                    <Form.Control type='text' value={props.areas} onChange={props.numberChange}/>
+                </Form.Group>
+                <Form.Group controlId='groups'>
+                    <Form.Label>Groups</Form.Label>
+                    <Form.Control type='text' value={props.groups} onChange={props.numberChange}/>
+                </Form.Group>
+                <Button type='submit' variant='outline-secondary'>Refresh</Button>
+            </Form>
+            <InputWarning show={props.raise_warning}/>
+        </div>
+    );
+}
+
 
 class Game extends React.Component {
     constructor(props) {
@@ -118,6 +145,8 @@ class Game extends React.Component {
             game_mode: 'single',
             population: 10,
             groups: 2,
+            areas: 10,
+            user_areas: 10,
             user_population: 10,
             user_groups: 2,
             raise_warning: false,
@@ -134,8 +163,9 @@ class Game extends React.Component {
         e.preventDefault();
         const user_population = this.state.user_population;
         const user_groups = this.state.user_groups;
+        const user_areas = this.state.user_areas;
 
-        if (isNaN(user_population) || isNaN(user_groups)) {
+        if (isNaN(user_population) || isNaN(user_groups) || isNaN(user_areas)) {
             this.setState({
                 raise_warning: true,
             });
@@ -144,8 +174,10 @@ class Game extends React.Component {
             this.setState({
                 population: +user_population,
                 groups: +user_groups,
+                areas: +user_areas,
                 user_groups,
                 user_population,
+                user_areas,
                 raise_warning: false,
             });
         }
@@ -155,6 +187,10 @@ class Game extends React.Component {
         if (e.target.id === 'groups') { // User changed groups
             this.setState({
                 user_groups: e.target.value,
+            });
+        } else if (e.target.id === 'areas') {
+            this.setState({
+                user_areas: e.target.value,
             });
         } else if (e.target.id === 'population') { // User changed population
             this.setState({
@@ -170,25 +206,23 @@ class Game extends React.Component {
             <Container className='game'>
                 <Row>
                     <Col sm='8' xs='6'>
-                        <Map numSquares={this.state.population} numPopulations={this.state.groups} />
+                        <Map
+                            numSquares={this.state.areas}
+                            numPopulations={this.state.groups}
+                            population={this.state.population}
+                        />
                     </Col>
                     <Col sm='4' xs='6'>
-                        <ToggleButtonGroup type='radio' value={this.state.game_mode} onChange={e => this.gameModeChange(e)} name='game-mode'>
-                            <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
-                            <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
-                        </ToggleButtonGroup>
-                        <Form onSubmit={(e) => this.gameNumberSubmit(e)} >
-                            <Form.Group controlId='population'>
-                                <Form.Label>Population</Form.Label>
-                                <Form.Control type='text' value={this.state.user_population} onChange={(e) => this.gameNumberChange(e)}/>
-                            </Form.Group>
-                            <Form.Group controlId='groups'>
-                                <Form.Label>Groups</Form.Label>
-                                <Form.Control type='text' value={this.state.user_groups} onChange={(e) => this.gameNumberChange(e)}/>
-                            </Form.Group>
-                            <Button type='submit' variant='outline-secondary'>Refresh</Button>
-                        </Form>
-                        <InputWarning show={this.state.raise_warning}/>
+                        <GameSettings
+                            game_mode={this.state.game_mode}
+                            modeChange={(e) => this.gameModeChange(e)}
+                            formSubmit={(e) => this.gameNumberSubmit(e)}
+                            numberChange={(e) => this.gameNumberChange(e)}
+                            population={this.state.user_population}
+                            areas={this.state.user_areas}
+                            groups={this.state.user_groups}
+                            raise_warning={this.state.raise_warning}
+                        />
                     </Col>
                 </Row>
             </Container>
