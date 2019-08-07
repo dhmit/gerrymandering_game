@@ -19,10 +19,20 @@ class Square extends React.Component {
         };
     }
 
-    boxClick = (e) => {
-        this.setState({
-            bgColor: "red"
-        })
+    boxClick = () => { // currently only switches between two colors, fix later
+        let district = this.state.district;
+        district += 1;
+        if (district % this.state.populations.length === 0) {
+            this.setState({
+                district: district,
+                bgColor: 'blue'
+            });
+        } else {
+            this.setState({
+                district: district,
+                bgColor: 'red'
+            });
+        }
     };
 
     render() {
