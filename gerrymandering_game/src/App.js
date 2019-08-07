@@ -84,28 +84,8 @@ class Map extends React.Component {
             <Square district={square.district} populations={square.populations}/>
         );
 
-        let column1, column2, column3;
-        const third = Math.round(viewSquares.length / 3);
-        if (viewSquares.length % 3 === 0) {
-            column1 = viewSquares.slice(0, third);
-            column2 = viewSquares.slice(third, 2*third);
-            column3 = viewSquares.slice(2*third, 3*third);
-        } else if (viewSquares.length % 3 === 1) {
-            column1 = viewSquares.slice(0, third+1);
-            column2 = viewSquares.slice(third+1, 2*third+1);
-            column3 = viewSquares.slice(2*third+1, 3*third+1);
-        } else {
-            column1 = viewSquares.slice(0, third+1);
-            column2 = viewSquares.slice(third+1, 2*third+2);
-            column3 = viewSquares.slice(2*third+2, 3*third+2);
-        }
-        
         return (
-            <div>
-                <Col>{column1}</Col>
-                <Col>{column2}</Col>
-                <Col>{column3}</Col>
-            </div>
+            <div>{viewSquares}</div>
         );
     }
 }
