@@ -23,7 +23,7 @@ class Square extends React.Component {
         this.setState({
             bgColor: "red"
         })
-    }
+    };
 
     render() {
         // display a square with population represented as person/circles
