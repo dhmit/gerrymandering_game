@@ -109,7 +109,7 @@ function InputWarning(props) {
         return null;
     } else {
         return (
-            <Alert variant='danger'>
+            <Alert variant='danger' className='input-warning'>
                 Please only use integer values
             </Alert>
         );
