@@ -86,6 +86,26 @@ class Map extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+
+            const squares = [];
+
+            for (let i = 0; i < this.props.numSquares; i++) {
+
+                let populations = [];
+                for (let p = 0; p < this.props.numPopulations; p++) {
+                    populations.push(Math.round(10*Math.random()));
+                }
+                squares.push({district: 0, populations: populations});
+            }
+
+            this.setState({
+                squares,
+            });
+        }
+    }
+
     render() {
         const viewSquares = this.state.squares.map(square =>
             <Square district={square.district} populations={square.populations}/>
