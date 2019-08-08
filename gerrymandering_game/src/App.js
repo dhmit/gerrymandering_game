@@ -62,9 +62,9 @@ class Square extends React.Component {
                     stroke={{color:'#000000'}}
                     strokeWidth={3}
                     onClick={this.boxClick}
-                />
+                >
                 <div style={{position:'absolute', zIndex:2, width:100, height:100}}>{people}</div>
-
+                </Rectangle>
             </div>
         );
     }
