@@ -23,6 +23,15 @@ class Square extends React.Component {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.setState({
+                populations: this.props.populations,
+                district: this.props.district,
+            });
+        }
+    }
+
     boxClick = () => { 
         const colors = ['red', 'blue', 'yellow', 'green', 'purple'];
         const district = (this.state.district+1) % this.state.populations.length;
