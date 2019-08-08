@@ -33,7 +33,7 @@ class Square extends React.Component {
     }
 
     boxClick = () => { 
-        const colors = ['red', 'blue', 'yellow', 'green', 'purple'];
+        const colors = ['red', 'blue', 'yellow', 'green', 'purple', 'pink', 'orange', 'magenta'];
         const district = (this.state.district+1) % this.state.populations.length;
         this.setState({
             district: district,
@@ -172,7 +172,7 @@ function GameSettings(props) {
                 </Form.Group>
                 <Form.Group controlId='groups'>
                     <Form.Label>Groups</Form.Label>
-                    <Form.Control type='text' value={props.groups} onChange={props.numberChange}/>
+                    <Form.Control type='number' min={1} max={8} value={props.groups} onChange={props.numberChange}/>
                 </Form.Group>
                 <Button type='submit' variant='outline-secondary'>Refresh</Button>
             </Form>
