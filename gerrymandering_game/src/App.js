@@ -19,7 +19,7 @@ class Square extends React.Component {
             district: props.district, // increases by 1 every click
             populations: props.populations, // list of integers representing population of each
             // type of group within this square, respectively
-            bgColor: '#ffffff'
+            bgColor: props.bgColor,
         };
     }
 
@@ -28,6 +28,7 @@ class Square extends React.Component {
             this.setState({
                 populations: this.props.populations,
                 district: this.props.district,
+                bgColor: this.props.bgColor,
             });
         }
     }
@@ -73,7 +74,7 @@ function Person(props) {
 }
 
 
-class Map extends React.Component {
+class Map extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -117,7 +118,7 @@ class Map extends React.Component {
 
     render() {
         const viewSquares = this.state.squares.map(square =>
-            <Square district={square.district} populations={square.populations}/>
+            <Square district={square.district} populations={square.populations} bgColor='#ffffff'/>
         );
 
         return (
