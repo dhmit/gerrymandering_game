@@ -34,16 +34,26 @@ class Square extends React.Component {
 
     render() {
         // display a square with population represented as person/circles
-        // on click, changes color to indicate changed district
+        const peopleColors = ['black', 'grey', 'lightgrey'];
+        const people = [];
+        for (let i = 0; i < this.state.populations.length; i++) {
+            for (let j = 0; j < this.state.populations[i]; j++) {
+                people.push(<Person color={peopleColors[i]}/>);
+            }
+        }
         return (
-            <Rectangle
-                width={100}
-                height={100}
-                fill={{color: this.state.bgColor}}
-                stroke={{color:'#000000'}}
-                strokeWidth={3}
-                onClick={this.boxClick}
-            />
+            <div>
+                <Rectangle
+                    width={100}
+                    height={100}
+                    fill={{color: this.state.bgColor}}
+                    stroke={{color:'#000000'}}
+                    strokeWidth={3}
+                    onClick={this.boxClick}
+                >
+                <div>{people}</div>
+                </Rectangle>
+            </div>
         );
     }
 }
@@ -54,8 +64,8 @@ function Person(props) {
         display: 'inline-block',
         backgroundColor: props.color, // Color of person determined by prop
         borderRadius: '50%',
-        width: '10%',
-        height: '10%',
+        width: '5%',
+        height: '5%',
     };
 
     return (
