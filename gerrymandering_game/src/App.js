@@ -34,7 +34,7 @@ class Square extends React.Component {
     }
 
     boxClick = () => { 
-        const colors = ['red', 'blue', 'yellow', 'green', 'purple', 'pink', 'orange', 'magenta'];
+        const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid', 'pink', 'orange', 'magenta'];
         const district = (this.state.district+1) % this.state.populations.length;
         this.setState({
             district: district,
@@ -43,15 +43,6 @@ class Square extends React.Component {
     };
 
     render() {
-        // display a square with population represented as person/circles
-        const peopleColors = ['black', 'brown', 'lightgrey'];
-        const people = [];
-        for (let i = 0; i < this.state.populations.length; i++) {
-            for (let j = 0; j < this.state.populations[i]; j++) {
-                people.push(<Person color={peopleColors[i]}/>);
-            }
-        }
-
         const square_style = {
             display: 'inline-block',
             backgroundColor: this.state.bgColor,
