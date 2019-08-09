@@ -44,7 +44,7 @@ class Square extends React.Component {
 
     render() {
         // display a square with population represented as person/circles
-        const peopleColors = ['black', 'grey', 'lightgrey'];
+        const peopleColors = ['black', 'brown', 'lightgrey'];
         const people = [];
         for (let i = 0; i < this.state.populations.length; i++) {
             for (let j = 0; j < this.state.populations[i]; j++) {
@@ -53,20 +53,16 @@ class Square extends React.Component {
         }
 
         return (
-            <div style={{position:'relative', zIndex:0}}>
-                <Rectangle
-                    position={'absolute'}
-                    zIndex={1}
-                    width={100}
-                    height={100}
-                    fill={{color: this.state.bgColor}}
-                    stroke={{color:'#000000'}}
-                    strokeWidth={3}
-                    onClick={this.boxClick}
-                >
-                <div style={{position:'absolute', zIndex:2, width:100, height:100}}>{people}</div>
-                </Rectangle>
-            </div>
+            <Rectangle
+                width={100}
+                height={100}
+                fill={{color: this.state.bgColor}}
+                stroke={{color:'#000000'}}
+                strokeWidth={3}
+                onClick={this.boxClick}
+            >
+                {people}
+            </Rectangle>
         );
     }
 }
@@ -79,8 +75,6 @@ function Person(props) {
         borderRadius: '50%',
         width: '10%',
         height: '10%',
-        position: 'relative',
-        zIndex: 3,
     };
 
     return (
