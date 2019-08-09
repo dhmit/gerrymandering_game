@@ -52,17 +52,18 @@ class Square extends React.Component {
             }
         }
 
+        const square_style = {
+            display: 'inline-block',
+            backgroundColor: this.state.bgColor,
+            width: 100,
+            height: 100,
+            border: '1px solid black',
+            margin: '2px 2px 2px 2px',
+            // onClick: this.boxClick,
+        };
+
         return (
-            <Rectangle
-                width={100}
-                height={100}
-                fill={{color: this.state.bgColor}}
-                stroke={{color:'#000000'}}
-                strokeWidth={3}
-                onClick={this.boxClick}
-            >
-                {people}
-            </Rectangle>
+            <div onClick={this.boxClick} style={square_style}>{this.state.populations.toString()}</div>
         );
     }
 }
