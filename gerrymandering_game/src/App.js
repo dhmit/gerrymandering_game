@@ -80,7 +80,7 @@ function Person(props) {
     );
 }
 
-
+/*
 class Map extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -133,6 +133,15 @@ class Map extends React.PureComponent {
         );
     }
 }
+*/
+
+function Map(props) {
+    const viewSquares = props.squares.map(square =>
+        <Square district={square.district} populations={square.populations} bgColor={'#ffffff'}/>
+    );
+
+    return (<div>{viewSquares}</div>);
+}
 
 function InputWarning(props) {
     if (!props.show) {
@@ -178,6 +187,15 @@ function GameSettings(props) {
 class Game extends React.Component {
     constructor(props) {
         super(props);
+        const squares = [];
+        for (let i = 0; i < 10; i++) {
+            let populations = [];
+            for (let p = 0; p < 2; p++) {
+                populations.push(Math.round(10*Math.random()));
+            }
+            squares.push({district: 0, populations: populations});
+        }
+
         this.state = {
             game_mode: 'single',
             population: 10,
@@ -187,7 +205,8 @@ class Game extends React.Component {
             user_population: 10,
             user_groups: 2,
             raise_warning: false,
-        }
+            squares: squares,
+        };
     }
 
     gameModeChange(val) {
@@ -207,6 +226,16 @@ class Game extends React.Component {
                 raise_warning: true,
             });
         } else {
+            const squares = [];
+
+            for (let i = 0; i < user_areas; i++) {
+
+                let populations = [];
+                for (let p = 0; p < user_groups; p++) {
+                    populations.push(Math.round(10*Math.random()));
+                }
+                squares.push({district: 0, populations: populations});
+            }
 
             this.setState({
                 population: +user_population,
@@ -216,6 +245,7 @@ class Game extends React.Component {
                 user_population,
                 user_areas,
                 raise_warning: false,
+                squares: squares,
             });
         }
     }
@@ -244,9 +274,7 @@ class Game extends React.Component {
                 <Row>
                     <Col sm='8' xs='6'>
                         <Map
-                            numSquares={this.state.areas}
-                            numPopulations={this.state.groups}
-                            population={this.state.population}
+                            squares={this.state.squares}
                         />
                     </Col>
                     <Col sm='4' xs='6'>
