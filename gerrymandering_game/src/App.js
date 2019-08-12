@@ -53,8 +53,14 @@ class Square extends React.Component {
             // onClick: this.boxClick,
         };
 
+        const groupNames = 'ABCDEFGH';
+        let squareText = '';
+        for (let i = 0; i < this.state.populations.length; i++) {
+            squareText += groupNames[i] + ':' + this.state.populations[i] + ' ';
+        }
+
         return (
-            <div onClick={this.boxClick} style={square_style}>{this.state.populations.toString()}</div>
+            <div onClick={this.boxClick} style={square_style}>{squareText}</div>
         );
     }
 }
