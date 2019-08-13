@@ -125,15 +125,17 @@ function GameStats(props) {
 
     const districtVotes = countDistrictVotes(props.squares);
     const districtReps = {};
+    let districtRepsStr = '';
 
     for (let district in districtVotes) {
-        districtReps[colors[district]] = groupNames[majorityGroup(districtVotes[district])];
+        districtReps[district] = majorityGroup(districtVotes[district]);
+        districtRepsStr += colors[district] + ': ' + groupNames[districtReps[district]] + '\n';
     }
 
     return (
         <div>
             <div>Game Stats</div>
-            <div>{JSON.stringify(districtReps)}</div>
+            <div>{districtRepsStr}</div>
         </div>
     );
 }

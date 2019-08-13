@@ -10,4 +10,5 @@
 .game-stats {
     text-align: center;
     margin: 3%;
+    white-space: pre;
 }
