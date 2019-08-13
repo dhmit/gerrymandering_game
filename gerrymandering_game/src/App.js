@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 
 const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid', 'pink', 'orange', 'paleturquoise'];
+const groupNames = 'ABCDEFGH';
 
 
 function Square(props) {
@@ -22,7 +23,6 @@ function Square(props) {
         margin: '2px 2px 2px 2px',
     };
 
-    const groupNames = 'ABCDEFGH';
     let squareText = '';
 
     for (let i = 0; i < props.populations.length; i++) {
@@ -127,13 +127,13 @@ function GameStats(props) {
     const districtReps = {};
 
     for (let district in districtVotes) {
-        districtReps[colors[district]] = majorityGroup(districtVotes[district]);
+        districtReps[colors[district]] = groupNames[majorityGroup(districtVotes[district])];
     }
 
     return (
         <div>
             <div>Game Stats</div>
-            <div></div>
+            <div>{JSON.stringify(districtReps)}</div>
         </div>
     );
 }
