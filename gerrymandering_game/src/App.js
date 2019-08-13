@@ -9,6 +9,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 
+const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid', 'pink', 'orange', 'paleturquoise'];
+
 
 function Square(props) {
     const square_style = {
@@ -111,21 +113,27 @@ function GameStats(props) {
         return districtVotes;
     }
 
-    const districtVotes = countDistrictVotes(props.squares);
-
-    for (let district in districtVotes) {
-        // find index with max value and replace cumulative pops list with index
-        let majorityGroup = 0;
-        for (let groupIndex in districtVotes[district]) {
-            if (districtVotes[district][groupIndex] > districtVotes[district][majorityGroup]) {
-                majorityGroup = groupIndex;
+    function majorityGroup(cumulativePopulations) {
+        let majorityIndex = 0;
+        for (let groupIndex in cumulativePopulations) {
+            if (cumulativePopulations[groupIndex] > cumulativePopulations[majorityIndex]) {
+                majorityIndex = groupIndex;
             }
         }
+        return majorityIndex;
+    }
+
+    const districtVotes = countDistrictVotes(props.squares);
+    const districtReps = {};
+
+    for (let district in districtVotes) {
+        districtReps[colors[district]] = majorityGroup(districtVotes[district]);
     }
 
     return (
         <div>
             <div>Game Stats</div>
+            <div></div>
         </div>
     );
 }
@@ -178,7 +186,8 @@ class Game extends React.Component {
     }
 
     boxClick = (i) => {
-        const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid', 'pink', 'orange', 'paleturquoise'];
+        // const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid',
+        // 'pink', 'orange', 'paleturquoise'];
         const district = (this.state.squares[i].district+1) % this.state.squares[i].populations.length;
         let newSquares = this.state.squares.slice();
         newSquares[i].district = district;
