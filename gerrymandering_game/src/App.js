@@ -86,7 +86,7 @@ function GameStats(props) {
         if (!districtVotes.hasOwnProperty(square.district)) {
             districtVotes[square.district] = square.populations;
         } else {
-            
+            // add square.populations to districtVotes[square.district]
         }
 
     }
