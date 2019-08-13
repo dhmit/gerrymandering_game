@@ -126,15 +126,25 @@ function GameStats(props) {
     const districtVotes = countDistrictVotes(props.squares);
     const districtReps = {};
     let districtRepsStr = '';
+    const groupDistricts = {};
+    let groupDistrictsStr = '';
 
     for (let district in districtVotes) {
         districtReps[district] = majorityGroup(districtVotes[district]);
+        if (!groupDistricts.hasOwnProperty(districtReps[district])) {
+            groupDistricts[districtReps[district]] = 1;
+        } else {
+            groupDistricts[districtReps[district]] += 1;
+        }
         districtRepsStr += colors[district] + ': ' + groupNames[districtReps[district]] + '\n';
+    }
+    for (let group in groupDistricts) {
+        groupDistrictsStr += groupNames[group] + ': ' + groupDistricts[group] + '\n';
     }
 
     return (
         <div>
-            <div>Game Stats</div>
+            <div><b>Game Stats</b></div>
             <div>{districtRepsStr}</div>
         </div>
     );
@@ -275,7 +285,7 @@ class Game extends React.Component {
                         </Row>
                         <Row>
                             <Col className='game-stats'>
-                                <GameStats squares={this.state.squares}/>
+                                <GameStats squares={this.state.squares} gameMode={this.state.game_mode}/>
                             </Col>
                         </Row>
                     </Col>
