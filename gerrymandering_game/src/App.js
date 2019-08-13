@@ -81,6 +81,15 @@ function InputWarning(props) {
 }
 
 function GameStats(props) {
+    const districtVotes = {};
+    for (let square in props.squares) {
+        if (!districtVotes.hasOwnProperty(square.district)) {
+            districtVotes[square.district] = square.populations;
+        } else {
+            
+        }
+
+    }
     return (
         <div>
             <div>Game Stats</div>
