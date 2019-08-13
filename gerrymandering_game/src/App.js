@@ -172,7 +172,7 @@ class Game extends React.Component {
             for (let p = 0; p < 2; p++) {
                 populations.push(Math.round(10*Math.random()));
             }
-            squares.push({district: 0, populations: populations, bgColor: '#ffffff', key: i});
+            squares.push({district: -1, populations: populations, bgColor: '#ffffff', key: i});
         }
 
         this.state = {
@@ -219,7 +219,7 @@ class Game extends React.Component {
                 for (let p = 0; p < user_groups; p++) {
                     populations.push(Math.round(10*Math.random()));
                 }
-                squares.push({district: 0, populations: populations, bgColor: '#ffffff', key: i});
+                squares.push({district: -1, populations: populations, bgColor: '#ffffff', key: i});
             }
 
             this.setState({
