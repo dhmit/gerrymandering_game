@@ -88,16 +88,8 @@ function GameStats(props) {
         }
     }
 
-    function addDistrictVotes() {
-        let districtVotes = {};
 
-
-
-        return districtVotes;
-    }
-
-
-    const districtVotes = addDistrictVotes();
+    const districtVotes = {};
     for (let square in props.squares) {
         if (!districtVotes.hasOwnProperty(square.district)) {
             districtVotes[square.district] = square.populations;
