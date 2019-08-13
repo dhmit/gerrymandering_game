@@ -150,9 +150,9 @@ function GameStats(props) {
 
     for (let district in districtVotes) {
         districtReps[district] = majorityGroup(districtVotes[district]);
-        if (!groupDistricts.hasOwnProperty(districtReps[district])) {
+        if (!groupDistricts.hasOwnProperty(districtReps[district]) && district != -1) {
             groupDistricts[districtReps[district]] = 1;
-        } else {
+        } else if (district != -1) {
             groupDistricts[districtReps[district]] += 1;
         }
         districtRepsStr += colors[district] + ': ' + groupNames[districtReps[district]] + '\n';
@@ -164,7 +164,10 @@ function GameStats(props) {
     return (
         <div>
             <div><b>Game Stats</b></div>
-            <div>{districtRepsStr}</div>
+            <Row>
+                <Col>{districtRepsStr}</Col>
+                <Col>{groupDistrictsStr}</Col>
+            </Row>
         </div>
     );
 }
