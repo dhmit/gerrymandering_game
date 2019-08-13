@@ -164,17 +164,13 @@ function GameSettings(props) {
                 <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
             </ToggleButtonGroup>
             <Form onSubmit={props.formSubmit} >
-                <Form.Group controlId='population'>
-                    <Form.Label>Population</Form.Label>
-                    <Form.Control type='text' value={props.population} onChange={props.numberChange}/>
-                </Form.Group>
                 <Form.Group controlId='areas'>
                     <Form.Label>Areas</Form.Label>
-                    <Form.Control type='text' value={props.areas} onChange={props.numberChange}/>
+                    <Form.Control type='number' min={1} value={props.areas} onChange={props.numberChange} required />
                 </Form.Group>
                 <Form.Group controlId='groups'>
                     <Form.Label>Groups</Form.Label>
-                    <Form.Control type='number' min={1} max={8} value={props.groups} onChange={props.numberChange}/>
+                    <Form.Control type='number' min={1} max={8} value={props.groups} onChange={props.numberChange} required/>
                 </Form.Group>
                 <Button type='submit' variant='outline-secondary'>Refresh</Button>
             </Form>
@@ -198,11 +194,9 @@ class Game extends React.Component {
 
         this.state = {
             game_mode: 'single',
-            population: 10,
             groups: 2,
             areas: 10,
             user_areas: 10,
-            user_population: 10,
             user_groups: 2,
             raise_warning: false,
             squares: squares,
@@ -217,11 +211,10 @@ class Game extends React.Component {
 
     gameNumberSubmit(e) {
         e.preventDefault();
-        const user_population = this.state.user_population;
         const user_groups = this.state.user_groups;
         const user_areas = this.state.user_areas;
 
-        if (isNaN(user_population) || isNaN(user_groups) || isNaN(user_areas)) {
+        if (isNaN(user_groups) || isNaN(user_areas)) {
             this.setState({
                 raise_warning: true,
             });
@@ -238,11 +231,9 @@ class Game extends React.Component {
             }
 
             this.setState({
-                population: +user_population,
                 groups: +user_groups,
                 areas: +user_areas,
                 user_groups,
-                user_population,
                 user_areas,
                 raise_warning: false,
                 squares: squares,
@@ -258,10 +249,6 @@ class Game extends React.Component {
         } else if (e.target.id === 'areas') {
             this.setState({
                 user_areas: e.target.value,
-            });
-        } else if (e.target.id === 'population') { // User changed population
-            this.setState({
-                user_population: e.target.value,
             });
         } else { // The user broke the system in a non-crashy way
             console.log(e.target.id);
@@ -283,7 +270,6 @@ class Game extends React.Component {
                             modeChange={(e) => this.gameModeChange(e)}
                             formSubmit={(e) => this.gameNumberSubmit(e)}
                             numberChange={(e) => this.gameNumberChange(e)}
-                            population={this.state.user_population}
                             areas={this.state.user_areas}
                             groups={this.state.user_groups}
                             raise_warning={this.state.raise_warning}
