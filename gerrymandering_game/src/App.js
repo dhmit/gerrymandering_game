@@ -106,6 +106,17 @@ function GameStats(props) {
         }
 
     }
+
+    for (let district in districtVotes) {
+        // find index with max value and replace cumulative pops list with index
+        let majorityGroup = 0;
+        for (let groupIndex in districtVotes[district]) {
+            if (districtVotes[district][groupIndex] > districtVotes[district][majorityGroup]) {
+                majorityGroup = groupIndex;
+            }
+        }
+    }
+
     return (
         <div>
             <div>Game Stats</div>
