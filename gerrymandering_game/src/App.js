@@ -156,6 +156,14 @@ function InputWarning(props) {
     }
 }
 
+function GameStats(props) {
+    return (
+        <div>
+            <div>Game Stats</div>
+        </div>
+    );
+}
+
 function GameSettings(props) {
     return (
         <div>
@@ -265,15 +273,24 @@ class Game extends React.Component {
                         />
                     </Col>
                     <Col sm='4' xs='6'>
-                        <GameSettings
-                            game_mode={this.state.game_mode}
-                            modeChange={(e) => this.gameModeChange(e)}
-                            formSubmit={(e) => this.gameNumberSubmit(e)}
-                            numberChange={(e) => this.gameNumberChange(e)}
-                            areas={this.state.user_areas}
-                            groups={this.state.user_groups}
-                            raise_warning={this.state.raise_warning}
-                        />
+                        <Row>
+                            <Col>
+                                <GameSettings
+                                    game_mode={this.state.game_mode}
+                                    modeChange={(e) => this.gameModeChange(e)}
+                                    formSubmit={(e) => this.gameNumberSubmit(e)}
+                                    numberChange={(e) => this.gameNumberChange(e)}
+                                    areas={this.state.user_areas}
+                                    groups={this.state.user_groups}
+                                    raise_warning={this.state.raise_warning}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className='game-stats'>
+                                <GameStats squares={this.state.squares}/>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </Container>
