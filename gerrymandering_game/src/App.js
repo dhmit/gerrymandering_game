@@ -151,9 +151,6 @@ function GameStats(props) {
         districtRepsStr += colors[district] + ': ' + groupNames[districtReps[district]] + '\n';
     }
 
-    // console.log(districtReps);
-    console.log(countPopularVote(props.squares));
-
     return (
         <div>
             <div>Game Stats</div>
