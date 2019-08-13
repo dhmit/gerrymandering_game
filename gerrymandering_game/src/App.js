@@ -123,6 +123,25 @@ function GameStats(props) {
         return majorityIndex;
     }
 
+    function countPopularVote(squares) {
+        const votes = {};
+        for (let square = 0; square < squares.length; square++) {
+
+            const populations = squares[square].populations;
+            for (let population in populations) {
+                const color = colors[population];
+
+                if (!votes.hasOwnProperty(color)) {
+                    votes[color] = 0;
+                }
+                votes[color] += populations[population];
+
+            }
+        }
+
+        return votes;
+    }
+
     const districtVotes = countDistrictVotes(props.squares);
     const districtReps = {};
     let districtRepsStr = '';
