@@ -112,25 +112,24 @@ function GameStats(props) {
     }
 
     const districtVotes = countDistrictVotes(props.squares);
-    console.log(districtVotes);
-    // for (let square in props.squares) {
-    //     if (!districtVotes.hasOwnProperty(square.district)) {
-    //         districtVotes[square.district] = square.populations;
-    //     } else {
-    //         // add square.populations to districtVotes[square.district]
-    //     }
-    //
-    // }
-    //
-    // for (let district in districtVotes) {
-    //     // find index with max value and replace cumulative pops list with index
-    //     let majorityGroup = 0;
-    //     for (let groupIndex in districtVotes[district]) {
-    //         if (districtVotes[district][groupIndex] > districtVotes[district][majorityGroup]) {
-    //             majorityGroup = groupIndex;
-    //         }
-    //     }
-    // }
+    for (let square in props.squares) {
+        if (!districtVotes.hasOwnProperty(square.district)) {
+            districtVotes[square.district] = square.populations;
+        } else {
+            // add square.populations to districtVotes[square.district]
+        }
+
+    }
+
+    for (let district in districtVotes) {
+        // find index with max value and replace cumulative pops list with index
+        let majorityGroup = 0;
+        for (let groupIndex in districtVotes[district]) {
+            if (districtVotes[district][groupIndex] > districtVotes[district][majorityGroup]) {
+                majorityGroup = groupIndex;
+            }
+        }
+    }
 
     return (
         <div>
