@@ -112,14 +112,6 @@ function GameStats(props) {
     }
 
     const districtVotes = countDistrictVotes(props.squares);
-    for (let square in props.squares) {
-        if (!districtVotes.hasOwnProperty(square.district)) {
-            districtVotes[square.district] = square.populations;
-        } else {
-            // add square.populations to districtVotes[square.district]
-        }
-
-    }
 
     for (let district in districtVotes) {
         // find index with max value and replace cumulative pops list with index
