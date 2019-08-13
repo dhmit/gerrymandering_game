@@ -8,64 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
-import {Rectangle} from 'react-shapes';
 
-
-/*
-class Square extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            district: props.district, // increases by 1 every click
-            populations: props.populations, // list of integers representing population of each
-            // type of group within this square, respectively
-            bgColor: props.bgColor,
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
-            this.setState({
-                populations: this.props.populations,
-                district: this.props.district,
-                bgColor: this.props.bgColor,
-            });
-        }
-    }
-
-    boxClick = () => { 
-        const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid', 'pink', 'orange', 'paleturquoise'];
-        const district = (this.state.district+1) % this.state.populations.length;
-        this.setState({
-            district: district,
-            bgColor: colors[district],
-        });
-    };
-
-    render() {
-        const square_style = {
-            display: 'inline-block',
-            backgroundColor: this.state.bgColor,
-            width: 100,
-            height: 100,
-            border: '1px solid black',
-            margin: '2px 2px 2px 2px',
-            // onClick: this.boxClick,
-        };
-
-        const groupNames = 'ABCDEFGH';
-        let squareText = '';
-        for (let i = 0; i < this.state.populations.length; i++) {
-            squareText += groupNames[i] + ':' + this.state.populations[i] + ' ';
-        }
-
-        return (
-            <div onClick={this.boxClick} style={square_style}>{squareText}</div>
-        );
-    }
-}
-*/
 
 function Square(props) {
     const square_style = {
@@ -75,7 +18,6 @@ function Square(props) {
         height: 100,
         border: '1px solid black',
         margin: '2px 2px 2px 2px',
-        // onClick: this.boxClick,
     };
 
     const groupNames = 'ABCDEFGH';
@@ -104,60 +46,6 @@ function Person(props) {
     );
 }
 
-/*
-class Map extends React.PureComponent {
-    constructor(props) {
-        super(props);
-
-        // set up squares
-        const squares = [];
-        for (let i = 0; i < props.numSquares; i++) {
-            let populations = [];
-            for (let p = 0; p < props.numPopulations; p++) {
-                populations.push(Math.round(10*Math.random()));
-            }
-            squares.push({district: 0, populations: populations});
-        }
-
-        this.state = {
-            numDistricts: props.numDistricts,
-            numPopulations: props.numPopulations,
-            numSquares: props.numSquares,
-            squares: squares, // each square in the list is {district: int, populations: []}
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
-
-            const squares = [];
-
-            for (let i = 0; i < this.props.numSquares; i++) {
-
-                let populations = [];
-                for (let p = 0; p < this.props.numPopulations; p++) {
-                    populations.push(Math.round(10*Math.random()));
-                }
-                squares.push({district: 0, populations: populations});
-            }
-
-            this.setState({
-                squares,
-            });
-        }
-    }
-
-    render() {
-        const viewSquares = this.state.squares.map(square =>
-            <Square district={square.district} populations={square.populations} bgColor='#ffffff'/>
-        );
-
-        return (
-            <div>{viewSquares}</div>
-        );
-    }
-}
-*/
 
 function Map(props) {
     function renderSquare(square, i) {
