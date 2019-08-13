@@ -82,32 +82,55 @@ function InputWarning(props) {
 
 function GameStats(props) {
 
-    function countVotes(populations, vote_list) {
-        for (let i = 0; i < populations.length; i++) {
-            vote_list[i] += populations[i];
+    function countVotes(districtVotes, square) { // Add votes of each population in a square to a district
+        const populations = square.populations.slice();
+        const district = square.district;
+
+        if (!districtVotes.hasOwnProperty(district)) { // If the district hasn't been counted yet, add it
+            districtVotes[district] = []
         }
-    }
+        const vote_list = districtVotes[district];
 
+        for (let i = 0; i < populations.length; i++) { // Add the votes from the square to its district
 
-    const districtVotes = {};
-    for (let square in props.squares) {
-        if (!districtVotes.hasOwnProperty(square.district)) {
-            districtVotes[square.district] = square.populations;
-        } else {
-            // add square.populations to districtVotes[square.district]
-        }
-
-    }
-
-    for (let district in districtVotes) {
-        // find index with max value and replace cumulative pops list with index
-        let majorityGroup = 0;
-        for (let groupIndex in districtVotes[district]) {
-            if (districtVotes[district][groupIndex] > districtVotes[district][majorityGroup]) {
-                majorityGroup = groupIndex;
+            if (vote_list[i]) {
+                vote_list[i] += populations[i];
+            } else {
+                vote_list[i] = populations[i];
             }
         }
     }
+
+    function countDistrictVotes(squares) {
+        const districtVotes = {};
+
+        for (let i = 0; i < squares.length; i++) {
+            countVotes(districtVotes, squares[i]);
+        }
+
+        return districtVotes;
+    }
+
+    const districtVotes = countDistrictVotes(props.squares);
+    console.log(districtVotes);
+    // for (let square in props.squares) {
+    //     if (!districtVotes.hasOwnProperty(square.district)) {
+    //         districtVotes[square.district] = square.populations;
+    //     } else {
+    //         // add square.populations to districtVotes[square.district]
+    //     }
+    //
+    // }
+    //
+    // for (let district in districtVotes) {
+    //     // find index with max value and replace cumulative pops list with index
+    //     let majorityGroup = 0;
+    //     for (let groupIndex in districtVotes[district]) {
+    //         if (districtVotes[district][groupIndex] > districtVotes[district][majorityGroup]) {
+    //             majorityGroup = groupIndex;
+    //         }
+    //     }
+    // }
 
     return (
         <div>
