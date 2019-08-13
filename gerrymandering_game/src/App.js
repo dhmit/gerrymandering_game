@@ -11,6 +11,7 @@ import Alert from 'react-bootstrap/Alert'
 import {Rectangle} from 'react-shapes';
 
 
+/*
 class Square extends React.Component {
     constructor(props) {
         super(props);
@@ -64,7 +65,30 @@ class Square extends React.Component {
         );
     }
 }
+*/
 
+function Square(props) {
+    const square_style = {
+        display: 'inline-block',
+        backgroundColor: props.bgColor,
+        width: 100,
+        height: 100,
+        border: '1px solid black',
+        margin: '2px 2px 2px 2px',
+        // onClick: this.boxClick,
+    };
+
+    const groupNames = 'ABCDEFGH';
+    let squareText = '';
+
+    for (let i = 0; i < props.populations.length; i++) {
+        squareText += groupNames[i] + ':' + props.populations[i] + ' ';
+    }
+
+    return (
+        <div onClick={props.boxClick} style={square_style}>{squareText}</div>
+    );
+}
 
 function Person(props) {
     const circle_style = { // Can be changed as needed
@@ -136,8 +160,20 @@ class Map extends React.PureComponent {
 */
 
 function Map(props) {
-    const viewSquares = props.squares.map(square =>
-        <Square district={square.district} populations={square.populations} bgColor={'#ffffff'}/>
+    function renderSquare(square, i) {
+        return (
+            <Square
+                district={square.district}
+                populations={square.populations}
+                bgColor={square.bgColor}
+                boxClick={() => props.boxClick(i)}
+                key={square.key}
+                index={i}
+            />
+        );
+    }
+    const viewSquares = props.squares.map((square, index) =>
+        renderSquare(square, index)
     );
 
     return (<div>{viewSquares}</div>);
@@ -193,7 +229,7 @@ class Game extends React.Component {
             for (let p = 0; p < 2; p++) {
                 populations.push(Math.round(10*Math.random()));
             }
-            squares.push({district: 0, populations: populations});
+            squares.push({district: 0, populations: populations, bgColor: '#ffffff', key: i});
         }
 
         this.state = {
@@ -208,6 +244,15 @@ class Game extends React.Component {
             squares: squares,
         };
     }
+
+    boxClick = (i) => {
+        const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid', 'pink', 'orange', 'paleturquoise'];
+        const district = (this.state.squares[i].district+1) % this.state.squares[i].populations.length;
+        let newSquares = this.state.squares.slice();
+        newSquares[i].district = district;
+        newSquares[i].bgColor = colors[district];
+        this.setState({squares: newSquares});
+    };
 
     gameModeChange(val) {
         this.setState({
@@ -234,7 +279,7 @@ class Game extends React.Component {
                 for (let p = 0; p < user_groups; p++) {
                     populations.push(Math.round(10*Math.random()));
                 }
-                squares.push({district: 0, populations: populations});
+                squares.push({district: 0, populations: populations, bgColor: '#ffffff', key: i});
             }
 
             this.setState({
@@ -275,6 +320,7 @@ class Game extends React.Component {
                     <Col sm='8' xs='6'>
                         <Map
                             squares={this.state.squares}
+                            boxClick={(i) => this.boxClick(i)}
                         />
                     </Col>
                     <Col sm='4' xs='6'>
