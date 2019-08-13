@@ -81,7 +81,23 @@ function InputWarning(props) {
 }
 
 function GameStats(props) {
-    const districtVotes = {};
+
+    function countVotes(populations, vote_list) {
+        for (let i = 0; i < populations.length; i++) {
+            vote_list[i] += populations[i];
+        }
+    }
+
+    function addDistrictVotes() {
+        let districtVotes = {};
+
+
+
+        return districtVotes;
+    }
+
+
+    const districtVotes = addDistrictVotes();
     for (let square in props.squares) {
         if (!districtVotes.hasOwnProperty(square.district)) {
             districtVotes[square.district] = square.populations;
