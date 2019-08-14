@@ -218,6 +218,10 @@ function GameSettings(props) {
                     <Form.Label>Groups</Form.Label>
                     <Form.Control type='number' min={1} max={8} value={props.groups} onChange={props.numberChange} required/>
                 </Form.Group>
+                <Form.Group controlId='districts'>
+                    <Form.Label>Districts</Form.Label>
+                    <Form.Control type='number' min={1} max={8} value={props.districts} onChange={props.numberChange} required/>
+                </Form.Group>
                 <Button type='submit' variant='outline-secondary'>Refresh</Button>
             </Form>
             <InputWarning show={props.raise_warning}/>
@@ -242,17 +246,17 @@ class Game extends React.Component {
             game_mode: 'single',
             groups: 2,
             areas: 10,
+            districts: 3,
             user_areas: 10,
             user_groups: 2,
+            user_districts: 3,
             raise_warning: false,
             squares: squares,
         };
     }
 
     boxClick = (i) => {
-        // const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid',
-        // 'pink', 'orange', 'paleturquoise'];
-        const district = (this.state.squares[i].district+1) % this.state.squares[i].populations.length;
+        const district = (this.state.squares[i].district+1) % this.state.districts;
         let newSquares = this.state.squares.slice();
         newSquares[i].district = district;
         newSquares[i].bgColor = colors[district];
@@ -269,8 +273,9 @@ class Game extends React.Component {
         e.preventDefault();
         const user_groups = this.state.user_groups;
         const user_areas = this.state.user_areas;
+        const user_districts = this.state.user_districts;
 
-        if (isNaN(user_groups) || isNaN(user_areas)) {
+        if (isNaN(user_groups) || isNaN(user_areas) || isNaN(user_districts)) {
             this.setState({
                 raise_warning: true,
             });
@@ -289,8 +294,10 @@ class Game extends React.Component {
             this.setState({
                 groups: +user_groups,
                 areas: +user_areas,
+                districts: +user_districts,
                 user_groups,
                 user_areas,
+                user_districts,
                 raise_warning: false,
                 squares: squares,
             });
@@ -305,6 +312,10 @@ class Game extends React.Component {
         } else if (e.target.id === 'areas') {
             this.setState({
                 user_areas: e.target.value,
+            });
+        } else if (e.target.id === 'districts') {
+            this.setState({
+                user_districts: e.target.value,
             });
         } else { // The user broke the system in a non-crashy way
             console.log(e.target.id);
@@ -331,6 +342,7 @@ class Game extends React.Component {
                                     numberChange={(e) => this.gameNumberChange(e)}
                                     areas={this.state.user_areas}
                                     groups={this.state.user_groups}
+                                    districts={this.state.user_districts}
                                     raise_warning={this.state.raise_warning}
                                 />
                             </Col>
