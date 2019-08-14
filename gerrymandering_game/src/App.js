@@ -174,7 +174,6 @@ function GameStats(props) {
         );
     } else { // game mode is proportional
         const votes = countPopularVote(props.squares);
-        console.log(votes);
         let total = 0;
         const reps = {};
         let repsStr = '';
@@ -183,7 +182,7 @@ function GameStats(props) {
         }
         for (let group in votes) {
             reps[group] = Math.round(8*votes[group]/total);
-            repsStr += group + ': ' + reps[group] + '\n';
+            repsStr += group + ' ('+ votes[group] + '): ' + reps[group] + '\n';
         }
         return (
             <div>
