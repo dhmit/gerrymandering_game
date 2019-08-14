@@ -129,12 +129,12 @@ function GameStats(props) {
 
             const populations = squares[square].populations;
             for (let population in populations) {
-                const color = colors[population];
+                const group = groupNames[population];
 
-                if (!votes.hasOwnProperty(color)) {
-                    votes[color] = 0;
+                if (!votes.hasOwnProperty(group)) {
+                    votes[group] = 0;
                 }
-                votes[color] += populations[population];
+                votes[group] += populations[population];
 
             }
         }
@@ -142,34 +142,58 @@ function GameStats(props) {
         return votes;
     }
 
-    const districtVotes = countDistrictVotes(props.squares);
-    const districtReps = {};
-    let districtRepsStr = '';
-    const groupDistricts = {};
-    let groupDistrictsStr = '';
+    if (props.gameMode === 'single') {
+        const districtVotes = countDistrictVotes(props.squares);
+        const districtReps = {};
+        let districtRepsStr = '';
+        const groupDistricts = {};
+        let groupDistrictsStr = '';
 
-    for (let district in districtVotes) {
-        districtReps[district] = majorityGroup(districtVotes[district]);
-        if (!groupDistricts.hasOwnProperty(districtReps[district]) && district != -1) {
-            groupDistricts[districtReps[district]] = 1;
-        } else if (district != -1) {
-            groupDistricts[districtReps[district]] += 1;
+        for (let district in districtVotes) {
+            districtReps[district] = majorityGroup(districtVotes[district]);
+
+            if (!groupDistricts.hasOwnProperty(districtReps[district]) && district !== '-1') {
+                groupDistricts[districtReps[district]] = 1;
+            } else if (district !== '-1') {
+                groupDistricts[districtReps[district]] += 1;
+            }
+            districtRepsStr += colors[district] + ': ' + groupNames[districtReps[district]] + '\n';
         }
-        districtRepsStr += colors[district] + ': ' + groupNames[districtReps[district]] + '\n';
-    }
-    for (let group in groupDistricts) {
-        groupDistrictsStr += groupNames[group] + ': ' + groupDistricts[group] + '\n';
+        for (let group in groupDistricts) {
+            groupDistrictsStr += groupNames[group] + ': ' + groupDistricts[group] + '\n';
+        }
+
+        return (
+            <div>
+                <div><b>Game Stats</b></div>
+                <Row>
+                    <Col>{districtRepsStr}</Col>
+                    <Col>{groupDistrictsStr}</Col>
+                </Row>
+            </div>
+        );
+    } else { // game mode is proportional
+        const votes = countPopularVote(props.squares);
+        console.log(votes);
+        let total = 0;
+        const reps = {};
+        let repsStr = '';
+        for (let group in votes) {
+            total += votes[group];
+        }
+        for (let group in votes) {
+            reps[group] = Math.round(8*votes[group]/total);
+            repsStr += group + ': ' + reps[group] + '\n';
+        }
+        return (
+            <div>
+                <div><b>Game Stats</b></div>
+                <div>{repsStr}</div>
+            </div>
+        )
     }
 
-    return (
-        <div>
-            <div><b>Game Stats</b></div>
-            <Row>
-                <Col>{districtRepsStr}</Col>
-                <Col>{groupDistrictsStr}</Col>
-            </Row>
-        </div>
-    );
+
 }
 
 function GameSettings(props) {
