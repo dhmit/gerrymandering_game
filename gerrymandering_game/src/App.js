@@ -165,10 +165,16 @@ function GameStats(props) {
 
         return (
             <div>
-                <div><b>Game Stats</b></div>
+                <h5><b>Game Stats</b></h5>
                 <Row>
-                    <Col>{districtRepsStr}</Col>
-                    <Col>{groupDistrictsStr}</Col>
+                    <Col>
+                        <h6>Representative of each district:</h6>
+                        <div>{districtRepsStr+'\n'}</div>
+                    </Col>
+                    <Col>
+                        <h6>Num. of representatives per group:</h6>
+                        <div>{groupDistrictsStr}</div>
+                    </Col>
                 </Row>
             </div>
         );
@@ -186,7 +192,8 @@ function GameStats(props) {
         }
         return (
             <div>
-                <div><b>Game Stats</b></div>
+                <h5><b>Game Stats</b></h5>
+                <h6>Population and representatives for each group:</h6>
                 <div>{repsStr}</div>
             </div>
         )
