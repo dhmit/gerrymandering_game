@@ -187,7 +187,7 @@ function GameStats(props) {
             total += votes[group];
         }
         for (let group in votes) {
-            reps[group] = Math.round(8*votes[group]/total);
+            reps[group] = Math.round(props.districts*votes[group]/total);
             repsStr += group + ' ('+ votes[group] + '): ' + reps[group] + '\n';
         }
         return (
@@ -349,7 +349,11 @@ class Game extends React.Component {
                         </Row>
                         <Row>
                             <Col className='game-stats'>
-                                <GameStats squares={this.state.squares} gameMode={this.state.game_mode}/>
+                                <GameStats
+                                    squares={this.state.squares}
+                                    gameMode={this.state.game_mode}
+                                    districts={this.state.districts}
+                                />
                             </Col>
                         </Row>
                     </Col>
