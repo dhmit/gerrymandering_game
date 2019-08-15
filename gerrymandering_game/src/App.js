@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
+import Collapse from 'react-bootstrap/Collapse';
 
 const colors = ['crimson', 'dodgerblue', 'gold', 'mediumseagreen', 'mediumorchid', 'pink', 'orange', 'paleturquoise'];
 const groupNames = 'ABCDEFGH';
@@ -205,6 +206,10 @@ function GameStats(props) {
 function GameSettings(props) {
     return (
         <div>
+            <Button className={'instructions'} variant={'outline-dark'} onClick={props.instructionsClick}>Instructions</Button>
+            <Collapse in={props.instructions}>
+                <div>Each square in this grid represents an area of land. Each area contains some number of people from each population group. By clicking on a square, you can change its color, which represents its district. Your job is to draw districts on this grid to favor one population group.</div>
+            </Collapse>
             <ToggleButtonGroup type='radio' value={props.game_mode} onChange={props.modeChange} name='game-mode'>
                 <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
                 <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
@@ -252,6 +257,7 @@ class Game extends React.Component {
             user_districts: 3,
             raise_warning: false,
             squares: squares,
+            instructions: false,
         };
     }
 
@@ -261,6 +267,10 @@ class Game extends React.Component {
         newSquares[i].district = district;
         newSquares[i].bgColor = colors[district];
         this.setState({squares: newSquares});
+    };
+
+    instructionsClick = () => {
+        this.setState({instructions: !this.state.instructions});
     };
 
     gameModeChange(val) {
@@ -344,6 +354,8 @@ class Game extends React.Component {
                                     groups={this.state.user_groups}
                                     districts={this.state.user_districts}
                                     raise_warning={this.state.raise_warning}
+                                    instructionsClick={() => this.instructionsClick()}
+                                    instructions={this.state.instructions}
                                 />
                             </Col>
                         </Row>
