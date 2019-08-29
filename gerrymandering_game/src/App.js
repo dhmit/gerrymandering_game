@@ -210,25 +210,30 @@ function GameSettings(props) {
             <Collapse in={props.instructions}>
                 <div>Each square in this grid represents an area of land. Each area contains some number of people from each population group. By clicking on a square, you can change its color, which represents its district. Your job is to draw districts on this grid to favor one population group.</div>
             </Collapse>
-            <ToggleButtonGroup type='radio' value={props.game_mode} onChange={props.modeChange} name='game-mode'>
-                <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
-                <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
-            </ToggleButtonGroup>
-            <Form onSubmit={props.formSubmit} >
-                <Form.Group controlId='areas'>
-                    <Form.Label>Areas</Form.Label>
-                    <Form.Control type='number' min={1} value={props.areas} onChange={props.numberChange} required />
-                </Form.Group>
-                <Form.Group controlId='groups'>
-                    <Form.Label>Groups</Form.Label>
-                    <Form.Control type='number' min={1} max={8} value={props.groups} onChange={props.numberChange} required/>
-                </Form.Group>
-                <Form.Group controlId='districts'>
-                    <Form.Label>Districts</Form.Label>
-                    <Form.Control type='number' min={1} max={8} value={props.districts} onChange={props.numberChange} required/>
-                </Form.Group>
-                <Button type='submit' variant='outline-secondary'>Refresh</Button>
-            </Form>
+            <Button className='options' variant='outline-dark' onClick={props.optionsClick}>Options</Button>
+            <Collapse in={props.show_options} className='toggle'>
+                <div>
+                    <ToggleButtonGroup type='radio' value={props.game_mode} onChange={props.modeChange} name='game-mode'>
+                        <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
+                        <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
+                    </ToggleButtonGroup>
+                    <Form onSubmit={props.formSubmit} >
+                        <Form.Group controlId='areas'>
+                            <Form.Label>Areas</Form.Label>
+                            <Form.Control type='number' min={1} value={props.areas} onChange={props.numberChange} required />
+                        </Form.Group>
+                        <Form.Group controlId='groups'>
+                            <Form.Label>Groups</Form.Label>
+                            <Form.Control type='number' min={1} max={8} value={props.groups} onChange={props.numberChange} required/>
+                        </Form.Group>
+                        <Form.Group controlId='districts'>
+                            <Form.Label>Districts</Form.Label>
+                            <Form.Control type='number' min={1} max={8} value={props.districts} onChange={props.numberChange} required/>
+                        </Form.Group>
+                        <Button type='submit' variant='outline-secondary'>Refresh</Button>
+                    </Form>
+                </div>
+            </Collapse>
             <InputWarning show={props.raise_warning}/>
         </div>
     );
@@ -258,6 +263,7 @@ class Game extends React.Component {
             raise_warning: false,
             squares: squares,
             instructions: false,
+            show_options: false,
         };
     }
 
@@ -272,6 +278,10 @@ class Game extends React.Component {
     instructionsClick = () => {
         this.setState({instructions: !this.state.instructions});
     };
+
+    optionsClick() {
+        this.setState({show_options: !this.state.show_options})
+    }
 
     gameModeChange(val) {
         this.setState({
@@ -334,7 +344,7 @@ class Game extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='game'>
                 <Container>
                     <Row>
                         <Col sm='8' xs='6'>
@@ -355,6 +365,8 @@ class Game extends React.Component {
                                         raise_warning={this.state.raise_warning}
                                         instructionsClick={() => this.instructionsClick()}
                                         instructions={this.state.instructions}
+                                        show_options={this.state.show_options}
+                                        optionsClick={() => this.optionsClick()}
                                     />
                         </Col>
                     </Row>
