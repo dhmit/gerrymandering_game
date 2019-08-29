@@ -166,14 +166,14 @@ function GameStats(props) {
 
         return (
             <div>
-                <h5><b>Game Stats</b></h5>
+                <h4><b>Game Stats</b></h4>
                 <Row>
                     <Col>
-                        <h6>Representative of each district:</h6>
+                        <h5><b>Representative of each district:</b></h5>
                         <div>{districtRepsStr+'\n'}</div>
                     </Col>
                     <Col>
-                        <h6>Num. of representatives per group:</h6>
+                        <h5><b>Num. of representatives per group:</b></h5>
                         <div>{groupDistrictsStr}</div>
                     </Col>
                 </Row>
@@ -334,43 +334,39 @@ class Game extends React.Component {
 
     render() {
         return (
-            <Container className='game'>
-                <Row>
-                    <Col sm='8' xs='6'>
-                        <Map
-                            squares={this.state.squares}
-                            boxClick={(i) => this.boxClick(i)}
-                        />
-                    </Col>
-                    <Col sm='4' xs='6'>
-                        <Row>
-                            <Col>
-                                <GameSettings
-                                    game_mode={this.state.game_mode}
-                                    modeChange={(e) => this.gameModeChange(e)}
-                                    formSubmit={(e) => this.gameNumberSubmit(e)}
-                                    numberChange={(e) => this.gameNumberChange(e)}
-                                    areas={this.state.user_areas}
-                                    groups={this.state.user_groups}
-                                    districts={this.state.user_districts}
-                                    raise_warning={this.state.raise_warning}
-                                    instructionsClick={() => this.instructionsClick()}
-                                    instructions={this.state.instructions}
-                                />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col className='game-stats'>
-                                <GameStats
-                                    squares={this.state.squares}
-                                    gameMode={this.state.game_mode}
-                                    districts={this.state.districts}
-                                />
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
+            <div>
+                <Container className='game'>
+                    <Row>
+                        <Col sm='8' xs='6'>
+                            <Map
+                                squares={this.state.squares}
+                                boxClick={(i) => this.boxClick(i)}
+                            />
+                        </Col>
+                        <Col sm='4' xs='6'>
+                                    <GameSettings
+                                        game_mode={this.state.game_mode}
+                                        modeChange={(e) => this.gameModeChange(e)}
+                                        formSubmit={(e) => this.gameNumberSubmit(e)}
+                                        numberChange={(e) => this.gameNumberChange(e)}
+                                        areas={this.state.user_areas}
+                                        groups={this.state.user_groups}
+                                        districts={this.state.user_districts}
+                                        raise_warning={this.state.raise_warning}
+                                        instructionsClick={() => this.instructionsClick()}
+                                        instructions={this.state.instructions}
+                                    />
+                        </Col>
+                    </Row>
+                </Container>
+                <div className='game-stats'>
+                    <GameStats
+                        squares={this.state.squares}
+                        gameMode={this.state.game_mode}
+                        districts={this.state.districts}
+                    />
+                </div>
+            </div>
         );
     }
 }
