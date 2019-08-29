@@ -1,6 +1,7 @@
 .game {
     overflow: auto;
     margin: 3%;
+    width: 991px;
 }
 
 .input-warning {

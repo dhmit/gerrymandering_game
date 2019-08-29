@@ -335,7 +335,7 @@ class Game extends React.Component {
     render() {
         return (
             <div>
-                <Container className='game'>
+                <Container>
                     <Row>
                         <Col sm='8' xs='6'>
                             <Map
