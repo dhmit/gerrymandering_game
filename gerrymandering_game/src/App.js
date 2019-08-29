@@ -153,6 +153,10 @@ function GameStats(props) {
         for (let district in districtVotes) {
             districtReps[district] = majorityGroup(districtVotes[district]);
 
+            if (colors[district] === undefined) {
+                continue;
+            }
+
             if (!groupDistricts.hasOwnProperty(districtReps[district]) && district !== '-1') {
                 groupDistricts[districtReps[district]] = 1;
             } else if (district !== '-1') {
