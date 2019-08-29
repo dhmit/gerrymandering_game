@@ -206,13 +206,13 @@ function GameStats(props) {
 function GameSettings(props) {
     return (
         <div>
-            <Button className={'instructions'} variant={'outline-dark'} onClick={props.instructionsClick}>Instructions</Button>
+            <Button className='instructions-button' variant={'outline-dark'} onClick={props.instructionsClick} block>Instructions</Button>
+            <Button className='settings-button' variant='outline-dark' onClick={props.optionsClick} block>Options</Button>
             <Collapse in={props.instructions}>
-                <div>Each square in this grid represents an area of land. Each area contains some number of people from each population group. By clicking on a square, you can change its color, which represents its district. Your job is to draw districts on this grid to favor one population group.</div>
+                <div className='instructions'>Each square in this grid represents an area of land. Each area contains some number of people from each population group. By clicking on a square, you can change its color, which represents its district. Your job is to draw districts on this grid to favor one population group.</div>
             </Collapse>
-            <Button className='options' variant='outline-dark' onClick={props.optionsClick}>Options</Button>
             <Collapse in={props.show_options} className='toggle'>
-                <div>
+                <div className='settings'>
                     <ToggleButtonGroup type='radio' value={props.game_mode} onChange={props.modeChange} name='game-mode'>
                         <ToggleButton value='single' variant='outline-dark'>Single Member</ToggleButton>
                         <ToggleButton value='proportional' variant='outline-dark'>Proportional</ToggleButton>
